@@ -15,7 +15,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.firestore.DocumentReference;
@@ -60,7 +59,7 @@ public class HomeFragment extends Fragment {
         SharedPreferences sharedPreferences = this.requireActivity().getSharedPreferences("UserInfo", Context.MODE_PRIVATE);
         name = sharedPreferences.getString("username",null);
 
-        DocumentReference documentReference = db.collection("Users").document(name);
+        DocumentReference documentReference = db.document("Users/"+name);
 
         documentReference.get().addOnCompleteListener(task -> {
             if(task.isSuccessful()){
