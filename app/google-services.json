@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "155083581561",
+    "firebase_url": "https://prjcommunitybank-default-rtdb.firebaseio.com",
+    "project_id": "prjcommunitybank",
+    "storage_bucket": "prjcommunitybank.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:155083581561:android:9630ac5e88ae85cc790ca8",
+        "android_client_info": {
+          "package_name": "com.project.lasalle.communitybank"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "155083581561-k8oe5nen2eeetetn77fik6n6ajqfv1sq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCRqrtsCLeAQgdDZc3mUVIPGzH19ShKg04"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "155083581561-k8oe5nen2eeetetn77fik6n6ajqfv1sq.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

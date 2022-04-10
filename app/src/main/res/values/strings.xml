@@ -1,0 +1,32 @@
+<resources>
+    <string name="app_name">Community Bank</string>
+    <string name="password">Password</string>
+    <string name="username">Username</string>
+    <string name="login">LogIn</string>
+    <string name="signup">SignUp</string>
+    <string name="forgotPassword">Forgot Password?</string>
+    <string name="alreadyRegistered">Already Registered? SignIn</string>
+    <string name="notRegistered">Not Registered? SignUp</string>
+    <string name="enterFirstName">Firstname</string>
+    <string name="enterLastName">Lastname</string>
+    <string name="enterEmail">Email</string>
+    <string name="enterPhoneNumber">Phone number</string>
+    <string name="choosePassword">Password</string>
+    <string name="email">Email</string>
+    <string name="welcome">Welcome</string>
+    <string name="home">Home</string>
+    <string name="transfer">Transfers</string>
+    <string name="payee">Payees</string>
+    <string name="menu">Menu</string>
+    <string name="manageAccount">Manage Accounts</string>
+    <string name="addSavingAccount">Add Savings</string>
+    <string name="addCreditAccount">Add Credit</string>
+    <string name="addAccount">Add Accounts</string>
+    <string name="logout">Logout</string>
+    <string name="myAccounts">My Accounts</string>
+    <string name="payeeName">Payee Name</string>
+    <string name="payeeEmail">Payee Email</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+</resources>
