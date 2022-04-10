@@ -1,22 +1,21 @@
 package Model;
 
-import com.google.type.DateTime;
-
+import com.google.protobuf.Timestamp;
 
 import EnumClasses.TransactionType;
 
 public class Transaction {
     private double amount;
     TransactionType transactionType;
-    private DateTime dateTime;
+    private Timestamp timestamp;
 
     public Transaction() {
     }
 
-    public Transaction(double amount, TransactionType transactionType, DateTime dateTime) {
+    public Transaction(double amount, TransactionType transactionType, Timestamp timestamp) {
         this.amount = amount;
         this.transactionType = transactionType;
-        this.dateTime = dateTime;
+        this.timestamp = timestamp;
     }
 
     public double getAmount() {
@@ -35,11 +34,11 @@ public class Transaction {
         this.transactionType = transactionType;
     }
 
-    public DateTime getDateTime() {
-        return dateTime;
+    public Timestamp getTimestamp() {
+        return timestamp;
     }
 
-    public void setDateTime(DateTime dateTime) {
-        this.dateTime = dateTime;
+    public void setTimestamp(Timestamp timestamp) {
+        this.timestamp = timestamp;
     }
 }

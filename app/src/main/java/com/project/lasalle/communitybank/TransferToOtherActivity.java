@@ -11,18 +11,22 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.SpinnerAdapter;
 
+import com.google.android.material.snackbar.Snackbar;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
+
+import com.google.protobuf.Timestamp;
 
 import java.util.ArrayList;
 
-import EnumClasses.AccountType;
+import EnumClasses.TransactionType;
 import Model.Account;
 import Model.Payee;
+import Model.Transaction;
 
 public class TransferToOtherActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
@@ -32,21 +36,20 @@ public class TransferToOtherActivity extends AppCompatActivity implements Adapte
     EditText edAmount;
     ArrayAdapter<Payee> adapter;
     ArrayAdapter<Account> accountAdapter;
-
     String payeeEmail,account,name;
     Double amount;
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_transfer_to_other);
-        init();
+        SharedPreferences sharedPreferences = getSharedPreferences("UserInfo",MODE_PRIVATE);
+        name = sharedPreferences.getString("username",null);
+        init(name);
 
     }
 
-    public void init(){
+    public void init(String name){
         btnSendMoney = findViewById(R.id.btnSend);
         edAmount = findViewById(R.id.edAmount);
         spinnerAccount = findViewById(R.id.spinnerAccount);
@@ -54,12 +57,23 @@ public class TransferToOtherActivity extends AppCompatActivity implements Adapte
         spinnerAccount.setOnItemSelectedListener(this);
         spinnerPayee.setOnItemSelectedListener(this);
 
-        SharedPreferences sharedPreferences = getSharedPreferences("UserInfo",MODE_PRIVATE);
-        name = sharedPreferences.getString("username",null);
+        getInfoForSpinner(name);
 
+        btnSendMoney.setOnClickListener(view -> {
+            amount = Double.valueOf(edAmount.getText().toString());
+            sendMoney(amount,name,view);
+
+        });
+    }
+
+    // Get all the information from database for the spinners
+    public void getInfoForSpinner(String name){
         ArrayList<Payee> payees = new ArrayList<Payee>();
         ArrayList<Account> accounts = new ArrayList<Account>();
-        db.collection("Users").document(name).collection("Payees").get().addOnCompleteListener(task -> {
+
+        CollectionReference payeeColRef = db.collection("Users/"+name+"/Payees");
+
+        payeeColRef.get().addOnCompleteListener(task -> {
             if (task.isSuccessful()){
                 for (QueryDocumentSnapshot querySnapshot : task.getResult()){
                     Payee payee = querySnapshot.toObject(Payee.class);
@@ -74,7 +88,9 @@ public class TransferToOtherActivity extends AppCompatActivity implements Adapte
         });
 
 
-        db.collection("Users").document(name).collection("Accounts").get().addOnCompleteListener(task -> {
+        CollectionReference accountColRef = db.collection("Users/"+name+"/Accounts");
+
+        accountColRef.get().addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
                 for (QueryDocumentSnapshot documentSnapshot : task.getResult()) {
                     Account account = documentSnapshot.toObject(Account.class);
@@ -87,28 +103,25 @@ public class TransferToOtherActivity extends AppCompatActivity implements Adapte
         }).addOnFailureListener(e -> {
 
         });
-
-        btnSendMoney.setOnClickListener(view -> {
-            amount = Double.valueOf(edAmount.getText().toString());
-            sendMoney(amount);
-
-        });
     }
 
-    public void sendMoney(Double amount){
-        SharedPreferences sharedPreferences = getSharedPreferences("UserInfo",MODE_PRIVATE);
-        name = sharedPreferences.getString("username",null);
-        db.collection("Users").document(name).collection("Accounts").document(account).get().addOnCompleteListener(task -> {
+    // Update the balance for both the user after sending the money
+    public void sendMoney(Double amount, String name,View view){
+
+        DocumentReference accountDocRef = db.document("Users/"+name+"/Accounts/"+account);
+
+        accountDocRef.get().addOnCompleteListener(task -> {
            if (task.isSuccessful()){
                DocumentSnapshot documentSnapshot = task.getResult();
                Account account1 = documentSnapshot.toObject(Account.class);
+               assert account1 != null;
                Double balance = account1.getBalance();
 
                if (amount > balance){
                    Log.e("Low","Amount exceed balance");
                }else{
                    balance = balance - amount;
-                   db.collection("Users").document(name).collection("Accounts").document(account).update("balance",balance).addOnCompleteListener(task1 -> {
+                   accountDocRef.update("balance",balance).addOnCompleteListener(task1 -> {
 
                    }).addOnFailureListener(e->{
                       Log.e("Error",e.getMessage());
@@ -119,13 +132,18 @@ public class TransferToOtherActivity extends AppCompatActivity implements Adapte
 
         });
 
-        db.collection("Users").document(name).collection("Payees").document(payeeEmail).get().addOnCompleteListener(task -> {
+        DocumentReference payeeDocRef = db.document("Users/"+name+"/Payees/"+payeeEmail);
+
+        payeeDocRef.get().addOnCompleteListener(task -> {
             if (task.isSuccessful()){
                 DocumentSnapshot documentSnapshot = task.getResult();
                 Payee payee = documentSnapshot.toObject(Payee.class);
+                assert payee != null;
                 String email = payee.getPayeeEmail();
-                Log.d("Email",email);
-                db.collection("Users").document(email).collection("Accounts").document(account).get().addOnCompleteListener(task1 ->{
+
+                DocumentReference docRef = db.document("Users/"+email+"/Accounts/"+account);
+
+                docRef.get().addOnCompleteListener(task1 ->{
                     if (task1.isSuccessful()){
                         DocumentSnapshot documentSnapshot1 = task1.getResult();
                         Account account1 = documentSnapshot1.toObject(Account.class);
@@ -133,14 +151,16 @@ public class TransferToOtherActivity extends AppCompatActivity implements Adapte
                         Double balance = account1.getBalance();
                         Log.d("Amount",balance.toString());
                         balance = balance + amount ;
-                        db.collection("Users").document(email).collection("Accounts").document(account).update("balance",balance).addOnCompleteListener(task3->{
+
+
+                        docRef.update("balance",balance).addOnCompleteListener(task3->{
 
                         }).addOnFailureListener(e->{
                            Log.e("Error",e.getMessage());
                         });
 
                     }
-                }).addOnFailureListener(e->{
+                }).addOnFailureListener(e -> {
                     Log.d("Error",e.getMessage());
                 });
             }
@@ -148,6 +168,29 @@ public class TransferToOtherActivity extends AppCompatActivity implements Adapte
            Log.e("Error",e.getMessage());
         });
     }
+
+    // Function to create transactions for both users
+    public void createTransactions(String name, String type, Double amount, TransactionType transactionType,View view){
+
+        long millis = System.currentTimeMillis();
+
+        Timestamp timestamp =
+                Timestamp.newBuilder()
+                        .setSeconds(millis / 1000)
+                        .setNanos((int)(millis % 1000 * 1_000_000))
+                        .build();
+
+        Transaction transaction = new Transaction(amount,transactionType,timestamp);
+
+        DocumentReference transactionDocRef = db.document("Users/"+name+"/Accounts/"+type+"/Transactions/");
+
+        transactionDocRef.set(transaction).addOnCompleteListener(task->{
+            Snackbar.make(view,"Money Send Successfully!!",Snackbar.LENGTH_SHORT).show();
+        }).addOnFailureListener(e -> {
+           Log.e("Error",e.getMessage());
+        });
+    }
+
 
     @Override
     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {

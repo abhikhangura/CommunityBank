@@ -56,8 +56,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     public void verifyUser(View view,String email, String password){
 
-        DocumentReference documentReference = db.collection("Users").document(email);
-        documentReference.get().addOnCompleteListener(task -> {
+        DocumentReference userDocRef = db.collection("Users").document(email);
+
+        userDocRef.get().addOnCompleteListener(task -> {
             if (task.isSuccessful()){
                 DocumentSnapshot documentSnapshot = task.getResult();
                 if (documentSnapshot.exists()){

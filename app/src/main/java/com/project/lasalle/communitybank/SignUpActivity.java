@@ -89,7 +89,10 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
     }
 
     public void createUser(View view){
-        db.collection("Users").document(stEmail).get().addOnSuccessListener(task->{
+
+        DocumentReference userDocRef = db.document("Users/"+stEmail);
+
+        userDocRef.get().addOnSuccessListener(task->{
             if(task.exists()){
                 Snackbar.make(view,"Email already exist!!\nPlease use another email.",Snackbar.LENGTH_LONG).show();
             }
@@ -97,7 +100,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
                 User user = new User(stFirstname,stLastName,stEmail,stPhoneNumber,stPassword,false);
                 Account account = new Account(Random.createAccountNumber(),0.00, AccountType.Personal);
 
-                db.collection("Users").document(stEmail).set(user).addOnSuccessListener(task1 -> {
+                userDocRef.set(user).addOnSuccessListener(task1 -> {
                     db.collection("Users").document(stEmail).collection("Accounts").document(AccountType.Personal.toString()).set(account).addOnSuccessListener(unused -> {
                         Intent intent = new Intent(SignUpActivity.this,MainActivity.class);
                         startActivity(intent);
