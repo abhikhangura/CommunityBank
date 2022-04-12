@@ -1,22 +1,23 @@
 package Model;
 
-import com.google.protobuf.Timestamp;
+import com.google.firebase.firestore.FieldValue;
 
 import EnumClasses.TransactionType;
 
 public class Transaction {
     private double amount;
     TransactionType transactionType;
-    private Timestamp timestamp;
+    private FieldValue timestamp;
 
     public Transaction() {
     }
 
-    public Transaction(double amount, TransactionType transactionType, Timestamp timestamp) {
+    public Transaction(double amount, TransactionType transactionType, FieldValue timestamp) {
         this.amount = amount;
         this.transactionType = transactionType;
         this.timestamp = timestamp;
     }
+
 
     public double getAmount() {
         return amount;
@@ -34,11 +35,11 @@ public class Transaction {
         this.transactionType = transactionType;
     }
 
-    public Timestamp getTimestamp() {
+    public FieldValue getTimestamp() {
         return timestamp;
     }
 
-    public void setTimestamp(Timestamp timestamp) {
+    public void setTimestamp(FieldValue timestamp) {
         this.timestamp = timestamp;
     }
 }

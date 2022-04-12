@@ -1,6 +1,7 @@
 package com.project.lasalle.communitybank;
 
 import android.content.Context;
+
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
@@ -11,8 +12,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
 import android.widget.Button;
+
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -22,13 +23,14 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
+
 import java.util.ArrayList;
 
 import EnumClasses.AccountType;
 import Model.Account;
 import Model.Random;
 import Model.RecyclerViewAccountAdapter;
-import Model.User;;
+import Model.User;
 
 public class HomeFragment extends Fragment {
 
@@ -65,9 +67,10 @@ public class HomeFragment extends Fragment {
             if(task.isSuccessful()){
                 DocumentSnapshot documentSnapshot = task.getResult();
                 if (documentSnapshot.exists()){
+
                     User user = documentSnapshot.toObject(User.class);
                     assert user != null;
-                    String fullName = "Welcome " + user.getFirstName();
+                    String fullName = user.getFirstName() + " " + user.getLastName();
                     txtName.setText(fullName);
                     if(!user.isStatus()){
                         txtMsg.setText("Your Account is under review.\n\tPlease come back later.");
@@ -93,7 +96,6 @@ public class HomeFragment extends Fragment {
             getAllAccounts(view,name);
             checkAccounts(name,addSavingAccount);
         });
-
     }
 
     public void addSavingAccount(String email,View view){
@@ -103,15 +105,13 @@ public class HomeFragment extends Fragment {
 
         docRef.set(account).addOnSuccessListener(unused ->
                 Snackbar.make(view,"Account Created Successfully",Snackbar.LENGTH_LONG).show()
-        ).addOnFailureListener(e->{
-            Snackbar.make(view,"Error occur during account creation!!\n" +
-                    "Try again later!!",Snackbar.LENGTH_LONG).show();
-        });
+        ).addOnFailureListener(e-> Snackbar.make(view,"Error occur during account creation!!\n" +
+                "Try again later!!",Snackbar.LENGTH_LONG).show());
     }
 
     public void checkAccounts(String email, Button addSavingAccount) {
 
-        ArrayList<Account> accounts = new ArrayList<Account>();
+        ArrayList<Account> accounts = new ArrayList<>();
 
         CollectionReference collectionReference = db.collection("Users/"+email+"/Accounts");
 
@@ -133,11 +133,11 @@ public class HomeFragment extends Fragment {
     }
 
     public void getAllAccounts(View view, String name){
-        ArrayList<Account> accountList = new ArrayList<Account>();
+        ArrayList<Account> accountList = new ArrayList<>();
 
-        CollectionReference collectionReference = db.collection("Users/"+name+"/Accounts");
+        CollectionReference accountColRef = db.collection("Users/"+name+"/Accounts");
 
-        collectionReference.get().addOnCompleteListener(task -> {
+        accountColRef.get().addOnCompleteListener(task -> {
             if (task.isSuccessful()){
                 for (QueryDocumentSnapshot document : task.getResult()) {
                     Account account = document.toObject(Account.class);
@@ -149,8 +149,6 @@ public class HomeFragment extends Fragment {
                     recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
                 }
             }
-        }).addOnFailureListener(e->{
-            Log.e("Error",e.getMessage());
-        });
+        }).addOnFailureListener(e-> Log.e("Error",e.getMessage()));
     }
 }

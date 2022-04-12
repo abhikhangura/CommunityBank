@@ -4,10 +4,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".MenuFragment">
+    tools:context=".MenuFragment"
+    android:padding="20dp">
 
 
     <Button
+        style="@style/Widget.Material3.Button.ElevatedButton"
+        android:textColor="@color/white"
+        android:backgroundTint="@color/blue"
+        android:textSize="20sp"
         android:id="@+id/btnLogout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

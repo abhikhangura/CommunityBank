@@ -26,6 +26,15 @@
     <string name="myAccounts">My Accounts</string>
     <string name="payeeName">Payee Name</string>
     <string name="payeeEmail">Payee Email</string>
+    <string name="selectAccount">Select Account</string>
+    <string name="selectPayee">Select Payee</string>
+    <string name="transferToOther">Transfer to Others</string>
+    <string name="transferTitle">Transfer money</string>
+    <string name="payeeTitle">Add New Payee</string>
+    <string name="transferToSelf">Transfer to own Account</string>
+    <string name="amount">Amount</string>
+    <string name="selectWithdrawAccount">Select withdraw account</string>
+    <string name="selectDepositAccount">Select deposit account</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 

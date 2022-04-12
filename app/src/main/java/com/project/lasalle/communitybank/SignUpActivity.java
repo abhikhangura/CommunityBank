@@ -10,32 +10,29 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
-
-import java.util.concurrent.atomic.AtomicBoolean;
 
 import EnumClasses.AccountType;
 import Model.Account;
 import Model.Random;
 import Model.User;
-import Model.Validation;
 
 public class SignUpActivity extends AppCompatActivity implements View.OnClickListener {
 
     ImageView imgLogo;
     TextView txtAlreadyReg;
-    EditText firstName,lastName,password,email,phoneNumber;
+    TextInputEditText firstName,lastName,password,email,phoneNumber;
     Button btnSignUp;
     String stFirstname,stLastName,stPassword,stEmail,stPhoneNumber;
+    TextInputLayout txtEmail,txtPassword,txtPhone,txtFirstName,txtLastName;
 
     FirebaseFirestore db = FirebaseFirestore.getInstance();
 
@@ -51,7 +48,6 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         imgLogo.setImageResource(R.drawable.logo);
         txtAlreadyReg = findViewById(R.id.txtAlreadyReg);
         txtAlreadyReg.setOnClickListener(this);
-
         firstName = findViewById(R.id.edFirstname);
         lastName = findViewById(R.id.edLastname);
         email = findViewById(R.id.edemail);
@@ -59,6 +55,11 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         phoneNumber = findViewById(R.id.edPhoneNumber);
         btnSignUp = findViewById(R.id.btnSignUp);
         btnSignUp.setOnClickListener(this);
+        txtEmail = findViewById(R.id.txtEmail);
+        txtPassword = findViewById(R.id.txtPassword1);
+        txtFirstName = findViewById(R.id.txtFirstName);
+        txtLastName = findViewById(R.id.txtLastName);
+        txtPhone = findViewById(R.id.txtPhoneNumber);
 
     }
 
@@ -70,8 +71,31 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         stPassword = password.getText().toString();
         stPhoneNumber = phoneNumber.getText().toString();
 
-        createUser(view);
+        if (stFirstname.length() == 0 ){
+            txtFirstName.setError("Please enter first name");
         }
+        if (stLastName.length() == 0){
+            txtLastName.setError("Please enter last name");
+        }
+        if (stEmail.length() == 0){
+            txtEmail.setError("Please enter email");
+        }
+        if( stPhoneNumber.length() == 0){
+            txtPhone.setError("Please enter the phone number");
+        }
+        if(stPassword.length()<=0){
+            txtPassword.setError("Please enter the password");
+        }
+        else{
+            txtFirstName.setErrorEnabled(false);
+            txtLastName.setErrorEnabled(false);
+            txtEmail.setErrorEnabled(false);
+            txtPhone.setErrorEnabled(false);
+            txtPassword.setErrorEnabled(false);
+            createUser(view);
+        }
+    }
+
     @SuppressLint("NonConstantResourceId")
     @Override
     public void onClick(View view) {

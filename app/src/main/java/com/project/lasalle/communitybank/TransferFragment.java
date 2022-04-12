@@ -1,8 +1,10 @@
 package com.project.lasalle.communitybank;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
@@ -11,9 +13,10 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 
-public class TransferFragment extends Fragment {
+public class TransferFragment extends Fragment implements View.OnClickListener {
 
-    Button btnSelfTransfer,btnTransferToOther;
+
+    CardView cardViewSelfTransfer,cardViewTransferToOther;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -25,12 +28,27 @@ public class TransferFragment extends Fragment {
     }
 
     public void init(View view){
-        btnSelfTransfer = view.findViewById(R.id.btnSelfTransfer);
-        btnTransferToOther = view.findViewById(R.id.btnOtherTransfer);
+        cardViewSelfTransfer = view.findViewById(R.id.cdSelfTransfer);
+        cardViewTransferToOther = view.findViewById(R.id.cdTransferToOther);
+        cardViewSelfTransfer.setOnClickListener(this);
+        cardViewTransferToOther.setOnClickListener(this);
 
-        btnTransferToOther.setOnClickListener(view1 -> {
-            Intent intent = new Intent(this.getContext(),TransferToOtherActivity.class);
-            startActivity(intent);
-        });
+    }
+
+    @SuppressLint("NonConstantResourceId")
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()){
+            case R.id.cdSelfTransfer:
+                Intent intent1 = new Intent(this.getContext(),TransferToSelfActivity.class);
+                startActivity(intent1);
+                break;
+            case R.id.cdTransferToOther:
+                Intent intent = new Intent(this.getContext(),TransferToOtherActivity.class);
+                startActivity(intent);
+                break;
+            default:
+                break;
+        }
     }
 }

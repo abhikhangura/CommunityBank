@@ -6,8 +6,9 @@
         android:enabled="true"
         android:icon="@drawable/ic_baseline_person_24"/>
     <item android:title="@string/transfer"
+        android:id="@+id/transfer"
         android:icon="@drawable/ic_baseline_import_export_24"
-        android:id="@+id/transfer"/>
+       />
     <item android:title="@string/payee"
         android:id="@+id/payee"
         android:icon="@drawable/ic_payee"/>

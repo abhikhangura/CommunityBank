@@ -7,15 +7,21 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
+
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.google.android.material.snackbar.Snackbar;
+import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.Timer;
+import java.util.TimerTask;
 
 import Model.User;
 
@@ -23,9 +29,12 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     ImageView imgLogo;
     Button btnLogin;
-    EditText edEmail, edPassword;
+    TextInputEditText edEmail, edPassword;
     String email, password;
     TextView txtNotReg;
+    TextInputLayout txtEmail,txtPass;
+    ProgressBar progressBar;
+    int counter =0;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     @Override
@@ -44,19 +53,23 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         txtNotReg.setOnClickListener(this);
         edEmail = findViewById(R.id.edEmail);
         edPassword = findViewById(R.id.edPassword);
+        txtEmail = findViewById(R.id.txtUsername);
+        txtPass = findViewById(R.id.txtPassword);
+        progressBar = findViewById(R.id.progressBar);
+        progressBar.setVisibility(View.GONE);
 
         SharedPreferences sharedPreferences = getSharedPreferences("UserInfo",MODE_PRIVATE);
         String name = sharedPreferences.getString("username",null);
 
-        if (name!=null){
+        if (name!= null){
             edEmail.setText(name);
         }
 
     }
 
-    public void verifyUser(View view,String email, String password){
+    public void verifyUser(View view, String email, String password){
 
-        DocumentReference userDocRef = db.collection("Users").document(email);
+        DocumentReference userDocRef = db.document("Users/"+email);
 
         userDocRef.get().addOnCompleteListener(task -> {
             if (task.isSuccessful()){
@@ -65,17 +78,36 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                    User user = documentSnapshot.toObject(User.class);
                     assert user != null;
                     if(user.getEmail().equals(email) && user.getPassword().equals(password)){
-                        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                        startActivity(intent);
-                        SharedPreferences sharedPreferences = getSharedPreferences("UserInfo",MODE_PRIVATE);
-                        SharedPreferences.Editor editor = sharedPreferences.edit();
-                        editor.putString("username", user.getEmail());
-                        editor.apply();
+
+
+                        Timer timer = new Timer();
+                        TimerTask timerTask = new TimerTask() {
+                            @Override
+                            public void run() {
+                                    counter++;
+                                    progressBar.setProgress(counter);
+
+                                    if (counter == 50){
+                                        timer.cancel();
+                                        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                                        startActivity(intent);
+                                        SharedPreferences sharedPreferences = getSharedPreferences("UserInfo",MODE_PRIVATE);
+                                        SharedPreferences.Editor editor = sharedPreferences.edit();
+                                        editor.putString("username", user.getEmail());
+                                        editor.apply();
+                                    }
+                            }
+                        };
+
+                        timer.schedule(timerTask,50,50);
+
                     }else {
+                        progressBar.setVisibility(View.GONE);
                         Snackbar.make(view,"Password is invalid!!!",Snackbar.LENGTH_LONG).show();
                     }
                 }
                 else{
+                    progressBar.setVisibility(View.GONE);
                    Snackbar.make(view,"Invalid Username!!",Snackbar.LENGTH_LONG).show();
                 }
             }
@@ -90,8 +122,26 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             case R.id.btnLogIn:
                 email = edEmail.getText().toString();
                 password = edPassword.getText().toString();
-                verifyUser(view,email,password);
-                edPassword.setText(null);
+                progressBar.setVisibility(View.VISIBLE);
+                if (email.length()<=0){
+                    txtEmail.setError("Please enter the email");
+                    progressBar.setVisibility(View.GONE);
+                    if (password.length()<=0){
+                        txtPass.setError("Please enter the password");
+                        progressBar.setVisibility(View.GONE);
+                    }
+                }else{
+                    if (password.length()<=0){
+                        txtPass.setError("Please enter the password");
+                        txtEmail.setErrorEnabled(false);
+                        progressBar.setVisibility(View.GONE);
+                    }else {
+                        txtEmail.setErrorEnabled(false);
+                        txtPass.setErrorEnabled(false);
+                        verifyUser(view,email,password);
+                        edPassword.setText(null);
+                    }
+                }
                 break;
             case R.id.txtNotReg:
                 Intent in = new Intent(LoginActivity.this,SignUpActivity.class);

@@ -13,7 +13,6 @@
         android:layout_height="match_parent"
         app:layout_constraintTop_toTopOf="parent"
         android:id="@+id/contentContainer">
-
     </FrameLayout>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView

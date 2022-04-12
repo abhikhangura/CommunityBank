@@ -5,16 +5,28 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".PayeeFragment"
-    android:padding="10dp"
-    >
+    android:padding="20dp">
+
+    <TextView
+        android:id="@+id/txtTitlePayee"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/payeeTitle"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:textSize="30sp"
+        android:textColor="@color/black"/>
 
     <com.google.android.material.textfield.TextInputLayout
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/payeeName"
+        android:id="@+id/txtPayeeName"
         android:hint="@string/payeeName"
-        app:layout_constraintTop_toTopOf="parent">
+        app:errorEnabled="true"
+        app:layout_constraintTop_toBottomOf="@+id/txtTitlePayee"
+        android:layout_marginTop="20dp">
 
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
@@ -26,9 +38,10 @@
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/payeeEmail"
+        android:id="@+id/txtPayeeEmail"
         android:hint="@string/payeeEmail"
-        app:layout_constraintTop_toBottomOf="@+id/payeeName"
+        app:errorEnabled="true"
+        app:layout_constraintTop_toBottomOf="@+id/txtPayeeName"
         android:layout_marginTop="10dp">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -38,11 +51,15 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <Button
+        style="@style/Widget.Material3.Button.ElevatedButton"
+        android:textColor="@color/white"
+        android:backgroundTint="@color/blue"
+        android:textSize="20sp"
         android:id="@+id/btnAddPayee"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Add"
-        app:layout_constraintTop_toBottomOf="@id/payeeEmail"
+        app:layout_constraintTop_toBottomOf="@id/txtPayeeEmail"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         android:layout_marginTop="20dp"/>

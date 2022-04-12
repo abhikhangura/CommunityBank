@@ -14,6 +14,9 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.google.android.material.snackbar.Snackbar;
+import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import Model.Payee;
@@ -23,10 +26,10 @@ public class PayeeFragment extends Fragment {
 
 
     FirebaseFirestore db = FirebaseFirestore.getInstance();
-    EditText edPayeeName,edPayeeEmail;
+    TextInputEditText edPayeeName,edPayeeEmail;
     Button btnAddPayee;
     String payeeName,payeeEmail;
-
+    TextInputLayout txtPayeeName,txtPayeeEmail;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -40,6 +43,8 @@ public class PayeeFragment extends Fragment {
         edPayeeEmail = view.findViewById(R.id.edPayeeEmail);
         edPayeeName = view.findViewById(R.id.edPayeeName);
         btnAddPayee = view.findViewById(R.id.btnAddPayee);
+        txtPayeeName = view.findViewById(R.id.txtPayeeName);
+        txtPayeeEmail = view.findViewById(R.id.txtPayeeEmail);
 
         SharedPreferences sharedPreferences = this.requireActivity().getSharedPreferences("UserInfo", Context.MODE_PRIVATE);
         String name = sharedPreferences.getString("username",null);
@@ -48,17 +53,32 @@ public class PayeeFragment extends Fragment {
             payeeName = edPayeeName.getText().toString();
             payeeEmail = edPayeeEmail.getText().toString();
 
-            Payee payee = new Payee(payeeName,payeeEmail);
+            if (payeeName.length()<=0){
+                txtPayeeName.setError("Please enter payee name");
+                if (payeeEmail.length()<=0){
+                    txtPayeeEmail.setError("Please enter payee Email");
+                }
+            }else{
+                if (payeeEmail.length()<=0){
+                    txtPayeeEmail.setError("Please enter payee Email");
+                    txtPayeeName.setErrorEnabled(false);
+                }else {
+                    Payee payee = new Payee(payeeName,payeeEmail);
+                    txtPayeeName.setErrorEnabled(false);
+                    txtPayeeEmail.setErrorEnabled(false);
 
-            db.collection("Users").document(name).collection("Payees").document(payeeName).set(payee).addOnCompleteListener(task -> {
-                Snackbar.make(view,"Payee added Successfully",Snackbar.LENGTH_SHORT).show();
-                edPayeeEmail.setText(null);
-                edPayeeName.setText(null);
-                edPayeeName.requestFocus();
-            }).addOnFailureListener(e -> {
-                Log.e("Error in payee",e.getMessage());
-            });
+                    DocumentReference payeeDocRef = db.document("Users/"+name+"/Payees/"+payeeName);
 
+                    payeeDocRef.set(payee).addOnCompleteListener(task -> {
+                        Snackbar.make(view,"Payee added Successfully",Snackbar.LENGTH_SHORT).show();
+                        edPayeeEmail.setText(null);
+                        edPayeeName.setText(null);
+                        edPayeeName.requestFocus();
+                    }).addOnFailureListener(e -> {
+                        Log.e("Error in payee",e.getMessage());
+                    });
+                }
+            }
         });
     }
 }

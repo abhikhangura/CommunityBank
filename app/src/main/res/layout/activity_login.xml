@@ -6,14 +6,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".LoginActivity"
-    android:id="@+id/loginLayout">
+    android:id="@+id/loginLayout"
+    android:padding="20dp">
 
     <ImageView
         android:id="@+id/imgLogo"
         android:layout_width="300dp"
         android:layout_height="250dp"
-        android:layout_marginTop="16dp"
-        app:layout_constraintHorizontal_bias="0.495"
+        android:layout_marginTop="20dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -25,18 +25,17 @@
         app:startIconDrawable="@drawable/ic_baseline_person_24"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
         android:hint="@string/email"
         app:endIconMode="clear_text"
+        app:errorEnabled="true"
         app:layout_constraintTop_toBottomOf="@+id/imgLogo">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/edEmail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/edEmail"
-            android:inputType="textEmailAddress"
-             />
+            android:inputType="textEmailAddress" />
+
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -45,9 +44,8 @@
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
         app:endIconMode="password_toggle"
+        app:errorEnabled="true"
         app:startIconDrawable="@drawable/ic_baseline_lock_24"
         android:hint="@string/password"
         app:layout_constraintTop_toBottomOf="@+id/txtUsername">
@@ -78,9 +76,22 @@
         android:id="@+id/txtNotReg"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
         android:text="@string/notRegistered"
         android:textSize="15dp"
-        android:layout_marginBottom="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent" />
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        app:layout_constraintTop_toTopOf="parent"
+        android:visibility="gone"
+        android:progress="@integer/material_motion_duration_medium_2"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"/>
