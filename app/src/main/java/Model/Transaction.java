@@ -2,22 +2,23 @@ package Model;
 
 import com.google.firebase.firestore.FieldValue;
 
+import java.util.Date;
+
 import EnumClasses.TransactionType;
 
 public class Transaction {
     private double amount;
     TransactionType transactionType;
-    private FieldValue timestamp;
+   private Date date;
 
     public Transaction() {
     }
 
-    public Transaction(double amount, TransactionType transactionType, FieldValue timestamp) {
+    public Transaction(double amount, TransactionType transactionType, Date date) {
         this.amount = amount;
         this.transactionType = transactionType;
-        this.timestamp = timestamp;
+        this.date = date;
     }
-
 
     public double getAmount() {
         return amount;
@@ -35,11 +36,11 @@ public class Transaction {
         this.transactionType = transactionType;
     }
 
-    public FieldValue getTimestamp() {
-        return timestamp;
+    public Date getDate() {
+        return date;
     }
 
-    public void setTimestamp(FieldValue timestamp) {
-        this.timestamp = timestamp;
+    public void setDate(Date date) {
+        this.date = date;
     }
 }

@@ -10,6 +10,7 @@
 
 
     <ImageView
+        android:layout_marginTop="60dp"
         android:id="@+id/imgBack"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -36,7 +37,7 @@
         android:id="@+id/accountDropDown"
         android:layout_marginTop="20dp"
         android:hint="@string/selectAccount"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+        style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
         app:layout_constraintTop_toBottomOf="@+id/txtTitle">
 
         <AutoCompleteTextView
@@ -56,7 +57,7 @@
         android:id="@+id/payeeDropDown"
         android:layout_marginTop="20dp"
         android:hint="@string/selectPayee"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+        style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
         app:layout_constraintTop_toBottomOf="@+id/accountDropDown">
 
         <AutoCompleteTextView
@@ -69,7 +70,7 @@
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/txtAmount"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
@@ -85,9 +86,11 @@
 
     <Button
         android:id="@+id/btnSend"
+        style="@style/Widget.Material3.Button.ElevatedButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Send Money"
+        app:strokeWidth="1dp"
         android:layout_marginTop="20dp"
         app:layout_constraintTop_toBottomOf="@+id/txtAmount"
         app:layout_constraintRight_toRightOf="parent"

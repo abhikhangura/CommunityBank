@@ -1,16 +1,16 @@
 package com.project.lasalle.communitybank;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
+import android.view.WindowManager;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.ImageView;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
@@ -22,8 +22,8 @@ import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 
-
 import java.util.ArrayList;
+import java.util.Calendar;
 
 import EnumClasses.TransactionType;
 import Model.Account;
@@ -48,6 +48,10 @@ public class TransferToOtherActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
+                WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
+        setContentView(R.layout.activity_login);
+        setContentView(R.layout.activity_main);
         setContentView(R.layout.activity_transfer_to_other);
         SharedPreferences sharedPreferences = getSharedPreferences("UserInfo",MODE_PRIVATE);
         name = sharedPreferences.getString("username",null);
@@ -66,10 +70,16 @@ public class TransferToOtherActivity extends AppCompatActivity {
         getInfoForSpinner(name);
 
         btnSendMoney.setOnClickListener(view -> {
-            amount = Double.parseDouble(edAmount.getText().toString());
-            String id = Random.createTransactionId();
-            sendMoney(id,amount,name,view);
-
+            try {
+                amount = Double.parseDouble(edAmount.getText().toString());
+                String id = Random.createTransactionId();
+                txtAmount.setErrorEnabled(false);
+                sendMoney(id,amount,name,view);
+            }catch (Exception e){
+                Log.e("Error",e.getMessage());
+                txtAmount.setErrorEnabled(true);
+                txtAmount.setError("Enter valid amount");
+            }
         });
 
         accountSelect.setOnItemClickListener((adapterView, view, i, l) -> account = adapterView.getItemAtPosition(i).toString());
@@ -135,7 +145,7 @@ public class TransferToOtherActivity extends AppCompatActivity {
                }else{
                    balance = balance - amount;
                    accountDocRef.update("balance",balance).addOnCompleteListener(task1 -> {
-                       createTransactions(id,name,account,amount,TransactionType.Withdraw,view);
+                       createTransactions(id,name,account,amount,TransactionType.Withdraw);
                         addMoneyToOtherUser(view,id);
                        Snackbar.make(view,"Money Send Successfully!!",Snackbar.LENGTH_SHORT).show();
                         edAmount.setText(null);
@@ -171,7 +181,7 @@ public class TransferToOtherActivity extends AppCompatActivity {
                         balance = balance + amount ;
 
 
-                        docRef.update("balance",balance).addOnCompleteListener(task3-> createTransactions(id,email,account,amount,TransactionType.Deposit,view)).addOnFailureListener(e-> Log.e("Error",e.getMessage()));
+                        docRef.update("balance",balance).addOnCompleteListener(task3-> createTransactions(id,email,account,amount,TransactionType.Deposit)).addOnFailureListener(e-> Log.e("Error",e.getMessage()));
 
                     }
                 }).addOnFailureListener(e -> Log.d("Error",e.getMessage()));
@@ -180,9 +190,9 @@ public class TransferToOtherActivity extends AppCompatActivity {
     }
 
     // Function to create transactions for both users
-    public void createTransactions(String transactionId,String name, String type, Double amount, TransactionType transactionType,View view){
+    public void createTransactions(String transactionId,String name, String type, Double amount, TransactionType transactionType){
 
-        Transaction transaction = new Transaction(amount,transactionType, FieldValue.serverTimestamp());
+        Transaction transaction = new Transaction(amount,transactionType, Calendar.getInstance().getTime());
 
         DocumentReference transactionDocRef = db.collection("Users/"+name+"/Accounts/"+type+"/Transactions").document(transactionId);
 

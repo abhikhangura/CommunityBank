@@ -2,6 +2,7 @@ package com.project.lasalle.communitybank;
 
 import android.content.Context;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
@@ -12,6 +13,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.Button;
 
 import android.widget.ImageView;
@@ -30,9 +32,10 @@ import EnumClasses.AccountType;
 import Model.Account;
 import Model.Random;
 import Model.RecyclerViewAccountAdapter;
+import Model.RecyclerViewInterfaceAccount;
 import Model.User;
 
-public class HomeFragment extends Fragment {
+public class HomeFragment extends Fragment implements RecyclerViewInterfaceAccount {
 
     String name;
     TextView txtName,txtMsg,txtMyAccounts;
@@ -40,10 +43,13 @@ public class HomeFragment extends Fragment {
     RecyclerView recyclerView;
     RecyclerViewAccountAdapter recyclerViewAccountAdapter;
     Button addSavingAccount;
+    ArrayList<Account> accountList1 = new ArrayList<>();
 
     FirebaseFirestore db = FirebaseFirestore.getInstance();
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
         View view = inflater.inflate(R.layout.fragment_home, container, false);
         SharedPreferences sharedPreferences = this.requireActivity().getSharedPreferences("UserInfo", Context.MODE_PRIVATE);
         name = sharedPreferences.getString("username",null);
@@ -76,12 +82,10 @@ public class HomeFragment extends Fragment {
                         txtMsg.setText("Your Account is under review.\n\tPlease come back later.");
                         addSavingAccount.setVisibility(View.GONE);
                         txtMyAccounts.setVisibility(View.GONE);
-
                     }
                     else{
                         getAllAccounts(view,name);
                         checkAccounts(name,addSavingAccount);
-
                     }
                 }else{
                     Snackbar.make(view,"Error loading data!!!",Snackbar.LENGTH_LONG).show();
@@ -142,13 +146,25 @@ public class HomeFragment extends Fragment {
                 for (QueryDocumentSnapshot document : task.getResult()) {
                     Account account = document.toObject(Account.class);
                     accountList.add(account);
+                    accountList1.add(account);
                     recyclerView = view.findViewById(R.id.recyclerViewAccount);
                     recyclerView.setHasFixedSize(true);
-                    recyclerViewAccountAdapter = new RecyclerViewAccountAdapter(getActivity(),accountList);
+                    recyclerViewAccountAdapter = new RecyclerViewAccountAdapter(getActivity(),accountList,this);
                     recyclerView.setAdapter(recyclerViewAccountAdapter);
                     recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
                 }
             }
         }).addOnFailureListener(e-> Log.e("Error",e.getMessage()));
+    }
+
+    @Override
+    public void onItemClick(int position) {
+        Log.d("in",accountList1.get(position).getAccountNumber());
+        Intent intent = new Intent(getActivity(),TransactionActivity.class);
+        intent.putExtra("AccountType",accountList1.get(position).getAccountType().toString());
+        intent.putExtra("AccountNumber",accountList1.get(position).getAccountNumber());
+        intent.putExtra("AccountBalance",String.valueOf(accountList1.get(position).getBalance()));
+
+        startActivity(intent);
     }
 }

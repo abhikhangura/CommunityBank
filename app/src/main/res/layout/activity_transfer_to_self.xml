@@ -12,6 +12,7 @@
         android:id="@+id/imgBackTra"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="60dp"
         app:srcCompat="@drawable/ic_baseline_arrow_back_24"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent"/>
@@ -32,7 +33,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/withdrawAccountDropDown"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+        style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
         app:layout_constraintTop_toBottomOf="@+id/txtTitleSelf"
         android:hint="@string/selectWithdrawAccount"
         android:layout_marginTop="20dp">
@@ -47,7 +48,7 @@
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+        style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
         app:layout_constraintTop_toBottomOf="@+id/withdrawAccountDropDown"
         android:id="@+id/depositAccountDropDown"
         android:hint="@string/selectDepositAccount"
@@ -64,7 +65,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/txtAmount"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
         app:layout_constraintTop_toBottomOf="@+id/depositAccountDropDown"
         android:hint="@string/amount"
         android:layout_marginTop="20dp">

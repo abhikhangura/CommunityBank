@@ -9,9 +9,9 @@
 
 
     <Button
+        android:layout_marginTop="60dp"
         style="@style/Widget.Material3.Button.ElevatedButton"
         android:textColor="@color/white"
-        android:backgroundTint="@color/blue"
         android:textSize="20sp"
         android:id="@+id/btnLogout"
         android:layout_width="wrap_content"

@@ -9,6 +9,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -39,6 +40,10 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
+                WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
+        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_HIDE_NAVIGATION);
+        setContentView(R.layout.activity_login);
         setContentView(R.layout.activity_sign_up);
         init();
     }
@@ -104,7 +109,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
                 addUser(view);
                 break;
             case R.id.txtAlreadyReg:
-                finish();
+                finishAfterTransition();
                 break;
             default:
                 break;

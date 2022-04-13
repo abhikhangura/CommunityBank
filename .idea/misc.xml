@@ -4,6 +4,7 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Android Projects/CommunityBank/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.1875" />
+        <entry key="..\:/Android Projects/CommunityBank/app/src/main/res/drawable/custom_button.xml" value="0.255" />
         <entry key="..\:/Android Projects/CommunityBank/app/src/main/res/drawable/ic_baseline_arrow_back_24.xml" value="0.13" />
         <entry key="..\:/Android Projects/CommunityBank/app/src/main/res/drawable/ic_baseline_currency_exchange_24.xml" value="0.206" />
         <entry key="..\:/Android Projects/CommunityBank/app/src/main/res/drawable/ic_baseline_email_24.xml" value="0.2525" />
@@ -11,11 +12,15 @@
         <entry key="..\:/Android Projects/CommunityBank/app/src/main/res/drawable/ic_baseline_lock_24.xml" value="0.2525" />
         <entry key="..\:/Android Projects/CommunityBank/app/src/main/res/drawable/ic_baseline_menu.xml" value="0.2755" />
         <entry key="..\:/Android Projects/CommunityBank/app/src/main/res/drawable/ic_baseline_person_24.xml" value="0.2525" />
+        <entry key="..\:/Android Projects/CommunityBank/app/src/main/res/drawable/ic_deposit.xml" value="0.255" />
         <entry key="..\:/Android Projects/CommunityBank/app/src/main/res/drawable/ic_launcher_background.xml" value="0.1875" />
         <entry key="..\:/Android Projects/CommunityBank/app/src/main/res/drawable/ic_outline_wifi_protected_setup_24.xml" value="0.2525" />
         <entry key="..\:/Android Projects/CommunityBank/app/src/main/res/drawable/ic_payee.xml" value="0.2755" />
+        <entry key="..\:/Android Projects/CommunityBank/app/src/main/res/drawable/ic_withdraw.xml" value="0.255" />
         <entry key="..\:/Android Projects/CommunityBank/app/src/main/res/drawable/icon_color.xml" value="0.1585" />
+        <entry key="..\:/Android Projects/CommunityBank/app/src/main/res/drawable/linear_layout_account.xml" value="0.145" />
         <entry key="..\:/Android Projects/CommunityBank/app/src/main/res/drawable/login_button.xml" value="0.1875" />
+        <entry key="..\:/Android Projects/CommunityBank/app/src/main/res/drawable/progressbar.xml" value="0.255" />
         <entry key="..\:/Android Projects/CommunityBank/app/src/main/res/drawable/spinner_style.xml" value="0.2525" />
         <entry key="..\:/Android Projects/CommunityBank/app/src/main/res/layout/account_details.xml" value="0.33" />
         <entry key="..\:/Android Projects/CommunityBank/app/src/main/res/layout/activity_login.xml" value="0.33" />
@@ -24,7 +29,9 @@
         <entry key="..\:/Android Projects/CommunityBank/app/src/main/res/layout/activity_manage_account.xml" value="0.2975630611372381" />
         <entry key="..\:/Android Projects/CommunityBank/app/src/main/res/layout/activity_payee.xml" value="0.25" />
         <entry key="..\:/Android Projects/CommunityBank/app/src/main/res/layout/activity_sign_up.xml" value="0.33" />
+        <entry key="..\:/Android Projects/CommunityBank/app/src/main/res/layout/activity_splash_screen.xml" value="0.2975630611372381" />
         <entry key="..\:/Android Projects/CommunityBank/app/src/main/res/layout/activity_tranfer_to_other.xml" value="0.20521590423257802" />
+        <entry key="..\:/Android Projects/CommunityBank/app/src/main/res/layout/activity_transaction.xml" value="0.2975630611372381" />
         <entry key="..\:/Android Projects/CommunityBank/app/src/main/res/layout/activity_transfer.xml" value="0.20199275362318841" />
         <entry key="..\:/Android Projects/CommunityBank/app/src/main/res/layout/activity_transfer_to_other.xml" value="0.33" />
         <entry key="..\:/Android Projects/CommunityBank/app/src/main/res/layout/activity_transfer_to_self.xml" value="0.2975630611372381" />
@@ -34,6 +41,7 @@
         <entry key="..\:/Android Projects/CommunityBank/app/src/main/res/layout/fragment_payee.xml" value="0.3484375" />
         <entry key="..\:/Android Projects/CommunityBank/app/src/main/res/layout/fragment_transfer.xml" value="0.2" />
         <entry key="..\:/Android Projects/CommunityBank/app/src/main/res/layout/icon_color.xml" value="0.20199275362318841" />
+        <entry key="..\:/Android Projects/CommunityBank/app/src/main/res/layout/transaction_details.xml" value="0.2975630611372381" />
         <entry key="..\:/Android Projects/CommunityBank/app/src/main/res/menu/bottom_navigation_menu.xml" value="0.3625" />
       </map>
     </option>

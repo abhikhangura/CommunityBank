@@ -6,7 +6,8 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
+
+import android.view.WindowManager;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
@@ -17,13 +18,12 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 
 import EnumClasses.TransactionType;
 import Model.Account;
@@ -47,6 +47,10 @@ public class TransferToSelfActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
+                WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
+        setContentView(R.layout.activity_login);
+        setContentView(R.layout.activity_main);
         setContentView(R.layout.activity_transfer_to_self);
         SharedPreferences sharedPreferences = getSharedPreferences("UserInfo",MODE_PRIVATE);
         String name = sharedPreferences.getString("username",null);
@@ -71,7 +75,12 @@ public class TransferToSelfActivity extends AppCompatActivity {
         depositAccount.setOnItemClickListener((adapterView, view, i, l) -> stDepositAccount = adapterView.getItemAtPosition(i).toString());
 
         btnSendMoney.setOnClickListener(view -> {
-            amount = Double.parseDouble(edAmount.getText().toString());
+            try {
+                amount = Double.parseDouble(edAmount.getText().toString());
+            }catch (Exception e){
+                txtAmount.setErrorEnabled(true);
+                txtAmount.setError("Please input a valid amount");
+            }
             String id = Random.createTransactionId();
             if (stWithdrawAccount.equals(stDepositAccount)){
                 txtWithdraw.setErrorEnabled(true);
@@ -81,7 +90,7 @@ public class TransferToSelfActivity extends AppCompatActivity {
             }else{
                 if (amount == 0){
                     txtAmount.setErrorEnabled(true);
-                    txtAmount.setError("Please input a valid value");
+                    txtAmount.setError("Please input a valid amount");
                 }else{
                     txtDeposit.setErrorEnabled(false);
                     txtWithdraw.setErrorEnabled(false);
@@ -127,7 +136,7 @@ public class TransferToSelfActivity extends AppCompatActivity {
                 balance = balance - amount;
 
                 withdrawDocRef.update("balance",balance).addOnCompleteListener(task1->{
-                    createTransactions(id,name,stWithdrawAccount,amount,TransactionType.Withdraw,view);
+                    createTransactions(id,name,stWithdrawAccount,amount,TransactionType.Withdraw);
                     updateBalanceOnOtherAccount(view,name,amount,id);
                 }).addOnFailureListener(e ->Log.e("Error",e.getMessage()));
             }
@@ -147,15 +156,15 @@ public class TransferToSelfActivity extends AppCompatActivity {
             depositDocRef.update("balance",balance).addOnCompleteListener(task1->{
                 edAmount.setText(null);
                 Snackbar.make(view,"Money send successfully!!",Snackbar.LENGTH_SHORT).show();
-                createTransactions(id,name,stDepositAccount,amount,TransactionType.Deposit,view);
+                createTransactions(id,name,stDepositAccount,amount,TransactionType.Deposit);
             }).addOnFailureListener(e ->Log.e("Error",e.getMessage()));
 
         }).addOnFailureListener(e ->Log.e("Error",e.getMessage()));
     }
 
-    public void createTransactions(String transactionId, String name, String type, Double amount, TransactionType transactionType, View view){
+    public void createTransactions(String transactionId, String name, String type, Double amount, TransactionType transactionType){
 
-        Transaction transaction = new Transaction(amount,transactionType, FieldValue.serverTimestamp());
+        Transaction transaction = new Transaction(amount,transactionType,  Calendar.getInstance().getTime());
 
         DocumentReference transactionDocRef = db.collection("Users/"+name+"/Accounts/"+type+"/Transactions").document(transactionId);
 

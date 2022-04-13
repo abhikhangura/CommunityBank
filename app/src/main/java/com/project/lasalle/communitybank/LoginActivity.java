@@ -3,11 +3,14 @@ package com.project.lasalle.communitybank;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
+import android.app.ActivityOptions;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Pair;
 import android.view.View;
 
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -31,15 +34,27 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     Button btnLogin;
     TextInputEditText edEmail, edPassword;
     String email, password;
-    TextView txtNotReg;
+    TextView txtNotReg,txtTitle;
     TextInputLayout txtEmail,txtPass;
     ProgressBar progressBar;
     int counter =0;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        txtEmail.setErrorEnabled(false);
+        txtPass.setErrorEnabled(false);
+
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
+                WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
+
+        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_HIDE_NAVIGATION);
         setContentView(R.layout.activity_login);
         init();
     }
@@ -57,13 +72,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         txtPass = findViewById(R.id.txtPassword);
         progressBar = findViewById(R.id.progressBar);
         progressBar.setVisibility(View.GONE);
+        txtTitle = findViewById(R.id.loginTitle);
 
-        SharedPreferences sharedPreferences = getSharedPreferences("UserInfo",MODE_PRIVATE);
-        String name = sharedPreferences.getString("username",null);
-
-        if (name!= null){
-            edEmail.setText(name);
-        }
 
     }
 
@@ -124,9 +134,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 password = edPassword.getText().toString();
                 progressBar.setVisibility(View.VISIBLE);
                 if (email.length()<=0){
+                    txtEmail.setErrorEnabled(true);
                     txtEmail.setError("Please enter the email");
                     progressBar.setVisibility(View.GONE);
                     if (password.length()<=0){
+                        txtPass.setErrorEnabled(true);
                         txtPass.setError("Please enter the password");
                         progressBar.setVisibility(View.GONE);
                     }
@@ -145,7 +157,14 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 break;
             case R.id.txtNotReg:
                 Intent in = new Intent(LoginActivity.this,SignUpActivity.class);
-                startActivity(in);
+
+                    Pair[] pair = new Pair[4];
+                    pair[0] = new Pair(imgLogo,"imageTrans");
+                    pair[1] = new Pair(txtEmail,"txtEmailTrans");
+                    pair[2] = new Pair(txtPass,"txtPassTrans");
+                    pair[3] = new Pair(btnLogin,"btnTrans");
+                ActivityOptions activityOptions = ActivityOptions.makeSceneTransitionAnimation(this, pair);
+                startActivity(in, activityOptions.toBundle());
                 break;
             default:
                 break;

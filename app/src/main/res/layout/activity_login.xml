@@ -9,14 +9,41 @@
     android:id="@+id/loginLayout"
     android:padding="20dp">
 
+
     <ImageView
         android:id="@+id/imgLogo"
-        android:layout_width="300dp"
-        android:layout_height="250dp"
-        android:layout_marginTop="20dp"
+        android:layout_width="200dp"
+        android:layout_height="150dp"
+        android:layout_marginTop="50dp"
+        android:elevation="8dp"
+        android:transitionName="imageTrans"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/login"
+        android:fontFamily="@font/bebasneue_regular"
+        android:id="@+id/loginTitle"
+        android:textSize="45sp"
+        android:transitionName="txtTrans"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="10dp"
+        app:layout_constraintTop_toBottomOf="@+id/imgLogo"
+        app:layout_constraintLeft_toLeftOf="parent" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/continueToLogin"
+        android:fontFamily="@font/bebasneue_regular"
+        android:id="@+id/loginDesc"
+        android:textSize="25sp"
+        android:transitionName="txtDescTrans"
+        app:layout_constraintTop_toBottomOf="@+id/loginTitle"
+        app:layout_constraintLeft_toLeftOf="parent" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
@@ -25,10 +52,10 @@
         app:startIconDrawable="@drawable/ic_baseline_person_24"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
+        android:transitionName="txtEmailTrans"
         android:hint="@string/email"
         app:endIconMode="clear_text"
-        app:errorEnabled="true"
-        app:layout_constraintTop_toBottomOf="@+id/imgLogo">
+        app:layout_constraintTop_toBottomOf="@+id/loginDesc">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/edEmail"
@@ -45,7 +72,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         app:endIconMode="password_toggle"
-        app:errorEnabled="true"
+        android:transitionName="txtPassTrans"
         app:startIconDrawable="@drawable/ic_baseline_lock_24"
         android:hint="@string/password"
         app:layout_constraintTop_toBottomOf="@+id/txtUsername">
@@ -61,16 +88,16 @@
         android:id="@+id/btnLogIn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
         android:text="@string/login"
-        android:textColor="@color/white"
         android:textSize="20sp"
+        android:textAllCaps="false"
+        android:transitionName="btnTrans"
+        android:elevation="20dp"
         style="@style/Widget.Material3.Button.ElevatedButton"
-        app:layout_constraintTop_toBottomOf="@+id/txtPassword"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        android:layout_marginTop="20dp"
-        android:backgroundTint="@color/blue"
-        />
+        app:layout_constraintTop_toBottomOf="@+id/txtPassword" />
 
     <TextView
         android:id="@+id/txtNotReg"
@@ -90,8 +117,10 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         app:layout_constraintTop_toTopOf="parent"
-        android:visibility="gone"
         android:progress="@integer/material_motion_duration_medium_2"
+        android:background="@drawable/progressbar"
+        android:padding="10dp"
+        android:elevation="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"/>
