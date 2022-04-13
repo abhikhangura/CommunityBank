@@ -4,12 +4,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -29,6 +31,7 @@ public class TransactionActivity extends AppCompatActivity {
 
     String accountNumber,accountType,accountBalance;
     TextView txtAccNum, txtAccType, txtAccBal;
+    ImageView imgBack;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     RecyclerView recyclerView;
     RecyclerViewTransactions recyclerViewTransactions;
@@ -47,6 +50,7 @@ public class TransactionActivity extends AppCompatActivity {
         init(name);
     }
 
+    @SuppressLint("SetTextI18n")
     public void init(String name){
         accountNumber = getIntent().getStringExtra("AccountNumber");
         accountType = getIntent().getStringExtra("AccountType");
@@ -55,11 +59,15 @@ public class TransactionActivity extends AppCompatActivity {
         txtAccNum = findViewById(R.id.txtAccNum);
         txtAccType = findViewById(R.id.txtAccType);
         txtAccBal = findViewById(R.id.txtAccBal);
+        imgBack = findViewById(R.id.imgBackTrans);
 
         txtAccType.setText(accountType);
         txtAccNum.setText(accountNumber);
         txtAccBal.setText("$"+ accountBalance);
 
+        imgBack.setOnClickListener(view -> {
+            finish();
+        });
 
         transactionArrayList = new ArrayList<>();
         CollectionReference transColRef = db.collection("Users/"+name+"/Accounts/"+accountType+"/Transactions");

@@ -50,7 +50,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
 
     public void init(){
         imgLogo = findViewById(R.id.imgLogo);
-        imgLogo.setImageResource(R.drawable.logo);
+        imgLogo.setImageResource(R.drawable.bank_login_logo);
         txtAlreadyReg = findViewById(R.id.txtAlreadyReg);
         txtAlreadyReg.setOnClickListener(this);
         firstName = findViewById(R.id.edFirstname);

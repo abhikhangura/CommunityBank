@@ -1,5 +1,6 @@
 package com.project.lasalle.communitybank;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -9,11 +10,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.LinearLayout;
 
 
 public class MenuFragment extends Fragment {
 
     Button btnLogout;
+    LinearLayout profileLayout, contactLayout;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -25,6 +28,8 @@ public class MenuFragment extends Fragment {
 
     public void init(View view){
         btnLogout = view.findViewById(R.id.btnLogout);
+        profileLayout = view.findViewById(R.id.cardProfile);
+        contactLayout = view.findViewById(R.id.cardContactUs);
 
         btnLogout.setOnClickListener(view1 -> {
             Intent intent = new Intent(getActivity().getBaseContext(),LoginActivity.class);
@@ -32,5 +37,16 @@ public class MenuFragment extends Fragment {
             startActivity(intent);
 
         });
+
+        profileLayout.setOnClickListener(view1 -> {
+            Intent intent = new Intent(getActivity().getBaseContext(),ProfileActivity.class);
+            startActivity(intent);
+        });
+
+        contactLayout.setOnClickListener(view1 -> {
+
+        });
     }
+
+
 }

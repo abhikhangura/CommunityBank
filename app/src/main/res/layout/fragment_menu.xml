@@ -7,17 +7,72 @@
     tools:context=".MenuFragment"
     android:padding="20dp">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/cardProfile"
+        android:orientation="horizontal"
+        android:elevation="5dp"
+        android:background="@drawable/linear_layout_account"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="80dp"
+        android:padding="20dp">
+
+
+        <ImageView
+            android:id="@+id/imageView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_baseline_person_24" />
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_weight="1"
+            android:textSize="20sp"
+            android:text="@string/profile" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/cardContactUs"
+        android:orientation="horizontal"
+        android:elevation="5dp"
+        app:layout_constraintTop_toBottomOf="@id/cardProfile"
+        android:background="@drawable/linear_layout_account"
+        android:layout_marginTop="30dp"
+        android:padding="20dp">
+
+        <ImageView
+            android:id="@+id/imageView4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_baseline_call_24" />
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:textSize="20sp"
+            android:layout_weight="1"
+            android:text="@string/contactUS" />
+    </LinearLayout>
 
     <Button
-        android:layout_marginTop="60dp"
         style="@style/Widget.Material3.Button.ElevatedButton"
-        android:textColor="@color/white"
-        android:textSize="20sp"
-        android:id="@+id/btnLogout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:id="@+id/btnLogout"
         android:text="@string/logout"
-        app:layout_constraintTop_toTopOf="parent"
+        app:strokeWidth="1dp"
+        android:layout_marginTop="50dp"
+        app:layout_constraintTop_toBottomOf="@+id/cardContactUs"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"/>
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

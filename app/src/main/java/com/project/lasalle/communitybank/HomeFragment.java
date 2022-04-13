@@ -13,10 +13,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.widget.Button;
 
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.google.android.material.snackbar.Snackbar;
@@ -43,15 +43,15 @@ public class HomeFragment extends Fragment implements RecyclerViewInterfaceAccou
     RecyclerView recyclerView;
     RecyclerViewAccountAdapter recyclerViewAccountAdapter;
     Button addSavingAccount;
+    LinearLayout linearLayout;
     ArrayList<Account> accountList1 = new ArrayList<>();
-
     FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_home, container, false);
-        SharedPreferences sharedPreferences = this.requireActivity().getSharedPreferences("UserInfo", Context.MODE_PRIVATE);
+        SharedPreferences sharedPreferences = this.requireActivity().getSharedPreferences("UserInfo",Context.MODE_PRIVATE);
         name = sharedPreferences.getString("username",null);
         init(view,name);
         return view;
@@ -62,10 +62,11 @@ public class HomeFragment extends Fragment implements RecyclerViewInterfaceAccou
 
         txtName = view.findViewById(R.id.txtName);
         imgLogo = view.findViewById(R.id.imgLogo);
-        imgLogo.setImageResource(R.drawable.logo);
+        imgLogo.setImageResource(R.drawable.bank_login_logo);
         txtMsg = view.findViewById(R.id.txtMsg);
         txtMyAccounts = view.findViewById(R.id.txtMyAccounts);
         addSavingAccount = view.findViewById(R.id.btnAddSavingAccount);
+        linearLayout = view.findViewById(R.id.linerAccountLayout);
 
         DocumentReference documentReference = db.document("Users/"+name);
 
@@ -73,15 +74,15 @@ public class HomeFragment extends Fragment implements RecyclerViewInterfaceAccou
             if(task.isSuccessful()){
                 DocumentSnapshot documentSnapshot = task.getResult();
                 if (documentSnapshot.exists()){
-
                     User user = documentSnapshot.toObject(User.class);
                     assert user != null;
                     String fullName = user.getFirstName() + " " + user.getLastName();
                     txtName.setText(fullName);
                     if(!user.isStatus()){
-                        txtMsg.setText("Your Account is under review.\n\tPlease come back later.");
+                        txtMsg.setText("Your Account is under review.\nPlease come back later.");
                         addSavingAccount.setVisibility(View.GONE);
                         txtMyAccounts.setVisibility(View.GONE);
+                        linearLayout.setVisibility(View.GONE);
                     }
                     else{
                         getAllAccounts(view,name);
@@ -96,8 +97,8 @@ public class HomeFragment extends Fragment implements RecyclerViewInterfaceAccou
         });
 
         addSavingAccount.setOnClickListener(view1 -> {
-            addSavingAccount(name, view);
-            getAllAccounts(view,name);
+            addSavingAccount(name, view1);
+            getAllAccounts(view1,name);
             checkAccounts(name,addSavingAccount);
         });
     }
@@ -159,7 +160,6 @@ public class HomeFragment extends Fragment implements RecyclerViewInterfaceAccou
 
     @Override
     public void onItemClick(int position) {
-        Log.d("in",accountList1.get(position).getAccountNumber());
         Intent intent = new Intent(getActivity(),TransactionActivity.class);
         intent.putExtra("AccountType",accountList1.get(position).getAccountType().toString());
         intent.putExtra("AccountNumber",accountList1.get(position).getAccountNumber());

@@ -38,6 +38,10 @@
     <string name="selectDepositAccount">Select deposit account</string>
     <string name="continueToLogin">Please LogIn to continue</string>
     <string name="continueToSignUp">Create a account to continue</string>
+    <string name="accountDetails">Account Details</string>
+    <string name="transactions">Transactions</string>
+    <string name="contactUS">Contact Us</string>
+    <string name="profile">Profile</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 

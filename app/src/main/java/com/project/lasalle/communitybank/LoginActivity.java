@@ -61,7 +61,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     public void init(){
         imgLogo = findViewById(R.id.imgLogo);
-        imgLogo.setImageResource(R.drawable.logo);
+        imgLogo.setImageResource(R.drawable.bank_login_logo);
         btnLogin = findViewById(R.id.btnLogIn);
         btnLogin.setOnClickListener(this);
         txtNotReg = findViewById(R.id.txtNotReg);
@@ -97,7 +97,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                                     counter++;
                                     progressBar.setProgress(counter);
 
-                                    if (counter == 50){
+                                    if (counter == 40){
                                         timer.cancel();
                                         Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                                         startActivity(intent);
@@ -109,7 +109,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                             }
                         };
 
-                        timer.schedule(timerTask,50,50);
+                        timer.schedule(timerTask,40,40);
 
                     }else {
                         progressBar.setVisibility(View.GONE);

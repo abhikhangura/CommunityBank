@@ -7,59 +7,79 @@
     tools:context=".PayeeFragment"
     android:padding="20dp">
 
-    <TextView
-        android:id="@+id/txtTitlePayee"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/payeeTitle"
+        android:orientation="vertical"
         android:layout_marginTop="60dp"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        android:textSize="30sp"
-        android:textColor="@color/black"/>
+        android:id="@+id/linearPayeeTop"
+        android:background="@drawable/linear_layout_account"
+        app:layout_constraintTop_toTopOf="parent">
 
-    <com.google.android.material.textfield.TextInputLayout
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        <TextView
+            android:id="@+id/txtTitlePayee"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/payeeTitle"
+            android:textSize="30sp"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="80dp"
+            android:layout_gravity="center"
+            android:textColor="@color/green"/>
+    </LinearLayout>
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/txtPayeeName"
-        android:hint="@string/payeeName"
-        app:errorEnabled="true"
-        app:layout_constraintTop_toBottomOf="@+id/txtTitlePayee"
-        android:layout_marginTop="20dp">
+        android:orientation="vertical"
+        android:id="@+id/linearPayeeBottom"
+        android:layout_marginTop="-50dp"
+        android:layout_marginStart="5dp"
+        android:padding="5dp"
+        android:layout_marginEnd="5dp"
+        android:background="@drawable/linear_layout_card"
+        app:layout_constraintTop_toBottomOf="@id/linearPayeeTop">
 
-        <com.google.android.material.textfield.TextInputEditText
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/edPayeeName"/>
-    </com.google.android.material.textfield.TextInputLayout>
+            android:id="@+id/txtPayeeName"
+            android:hint="@string/payeeName"
+            android:layout_marginTop="20dp">
 
-    <com.google.android.material.textfield.TextInputLayout
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/txtPayeeEmail"
-        android:hint="@string/payeeEmail"
-        app:errorEnabled="true"
-        app:layout_constraintTop_toBottomOf="@+id/txtPayeeName"
-        android:layout_marginTop="10dp">
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/edPayeeName"/>
+        </com.google.android.material.textfield.TextInputLayout>
 
-        <com.google.android.material.textfield.TextInputEditText
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/edPayeeEmail"/>
-    </com.google.android.material.textfield.TextInputLayout>
+            android:id="@+id/txtPayeeEmail"
+            android:hint="@string/payeeEmail"
+            android:layout_marginTop="10dp">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/edPayeeEmail"/>
+        </com.google.android.material.textfield.TextInputLayout>
+    </LinearLayout>
+
+
 
     <Button
         style="@style/Widget.Material3.Button.ElevatedButton"
-        android:textSize="20sp"
         android:id="@+id/btnAddPayee"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Add"
-        app:layout_constraintTop_toBottomOf="@id/txtPayeeEmail"
+        app:strokeWidth="1dp"
+        app:layout_constraintTop_toBottomOf="@id/linearPayeeBottom"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        android:layout_marginTop="20dp"/>
+        android:layout_marginTop="30dp"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

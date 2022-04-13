@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ProfileActivity"
+    android:padding="20dp">
+
+    <ImageView
+        android:id="@+id/imageBackProfile"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginTop="60dp"
+        app:srcCompat="@drawable/ic_baseline_arrow_back_24" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:layout_marginTop="20dp"
+        android:id="@+id/linearProfileTop"
+        android:background="@drawable/linear_layout_account"
+        app:layout_constraintTop_toBottomOf="@id/imageBackProfile"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/txtTitleProfile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="User Info"
+            android:textSize="35sp"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="70dp"
+            android:textColor="@color/green"
+            android:layout_gravity="center"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginTop="-40dp"
+        android:padding="20dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginEnd="5dp"
+        android:elevation="5dp"
+        android:id="@+id/linear_ProfileBottom"
+        android:background="@drawable/linear_layout_profile"
+        app:layout_constraintTop_toBottomOf="@+id/linearProfileTop">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Firstname:"
+            android:layout_marginTop="5dp"
+            android:textSize="15sp"
+            android:textColor="#e0c878"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/txtProfileName"
+            android:textSize="25sp"
+            android:textColor="#e0c878"
+            android:layout_marginTop="10dp"/>
+
+        <View
+            android:id="@+id/divider5"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_marginTop="5dp"
+            android:background="@color/black" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Lastname:"
+            android:layout_marginTop="5dp"
+            android:textSize="15sp"
+            android:textColor="#e0c878"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/txtProfileLastName"
+            android:textSize="25sp"
+            android:textColor="#e0c878"
+            android:layout_marginTop="10dp"/>
+
+        <View
+            android:id="@+id/divider6"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_marginTop="5dp"
+            android:background="@color/black" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:layout_marginTop="20dp"
+        android:id="@+id/linearContactProfileTop"
+        android:background="@drawable/linear_layout_account"
+        app:layout_constraintTop_toBottomOf="@id/linear_ProfileBottom"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/txtTitleProfileContact"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Contact Info"
+            android:textSize="35sp"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="70dp"
+            android:textColor="@color/green"
+            android:layout_gravity="center"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginTop="-40dp"
+        android:padding="20dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginEnd="5dp"
+        android:elevation="5dp"
+        android:id="@+id/linear_ContactBottom"
+        android:background="@drawable/linear_layout_profile"
+        app:layout_constraintTop_toBottomOf="@+id/linearContactProfileTop">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Email:"
+            android:layout_marginTop="5dp"
+            android:textSize="15sp"
+            android:textColor="#e0c878"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/txtProfileEmail"
+            android:textSize="25sp"
+            android:textColor="#e0c878"
+            android:layout_marginTop="10dp"/>
+
+        <View
+            android:id="@+id/divider7"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_marginTop="5dp"
+            android:background="@color/black" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Phone:"
+            android:layout_marginTop="5dp"
+            android:textSize="15sp"
+            android:textColor="#e0c878"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/txtProfilePhone"
+            android:textSize="25sp"
+            android:textColor="#e0c878"
+            android:layout_marginTop="10dp"/>
+
+        <View
+            android:id="@+id/divider8"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_marginTop="5dp"
+            android:background="@color/black" />
+
+    </LinearLayout>
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

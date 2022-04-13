@@ -17,6 +17,7 @@ import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import Model.Payee;
@@ -67,16 +68,30 @@ public class PayeeFragment extends Fragment {
                     txtPayeeName.setErrorEnabled(false);
                     txtPayeeEmail.setErrorEnabled(false);
 
+                    DocumentReference userDocRef = db.document("Users/"+payeeEmail);
+
                     DocumentReference payeeDocRef = db.document("Users/"+name+"/Payees/"+payeeName);
 
-                    payeeDocRef.set(payee).addOnCompleteListener(task -> {
-                        Snackbar.make(view,"Payee added Successfully",Snackbar.LENGTH_SHORT).show();
-                        edPayeeEmail.setText(null);
-                        edPayeeName.setText(null);
-                        edPayeeName.requestFocus();
-                    }).addOnFailureListener(e -> {
-                        Log.e("Error in payee",e.getMessage());
-                    });
+                    userDocRef.get().addOnCompleteListener(task -> {
+                        if (task.isSuccessful()){
+                            DocumentSnapshot documentSnapshot = task.getResult();
+                            if (documentSnapshot.exists()){
+                                payeeDocRef.set(payee).addOnCompleteListener(task1 -> {
+                                    Snackbar.make(view,"Payee added Successfully",Snackbar.LENGTH_SHORT).show();
+                                    edPayeeEmail.setText(null);
+                                    edPayeeName.setText(null);
+                                    edPayeeName.requestFocus();
+                                }).addOnFailureListener(e -> {
+                                    Log.e("Error in payee",e.getMessage());
+                                });
+                            }else {
+                                txtPayeeEmail.setError("Please enter a valid user");
+                            }
+                        }
+                        else {
+                            txtPayeeEmail.setError("Please enter a valid user");
+                        }
+                    }).addOnFailureListener(e -> Log.e("Error",e.getMessage()));
                 }
             }
         });

@@ -82,21 +82,26 @@ public class TransferToSelfActivity extends AppCompatActivity {
                 txtAmount.setError("Please input a valid amount");
             }
             String id = Random.createTransactionId();
-            if (stWithdrawAccount.equals(stDepositAccount)){
-                txtWithdraw.setErrorEnabled(true);
-                txtDeposit.setErrorEnabled(true);
-                txtWithdraw.setError("Choose different account");
-                txtDeposit.setError("Choose different account");
-            }else{
-                if (amount == 0){
-                    txtAmount.setErrorEnabled(true);
-                    txtAmount.setError("Please input a valid amount");
+            try{
+                if (stWithdrawAccount.equals(stDepositAccount)){
+                    txtWithdraw.setErrorEnabled(true);
+                    txtDeposit.setErrorEnabled(true);
+                    txtWithdraw.setError("Choose different account");
+                    txtDeposit.setError("Choose different account");
                 }else{
-                    txtDeposit.setErrorEnabled(false);
-                    txtWithdraw.setErrorEnabled(false);
-                    transferMoney(view,name,amount,id);
+                    if (amount == 0){
+                        txtAmount.setErrorEnabled(true);
+                        txtAmount.setError("Please input a valid amount");
+                    }else{
+                        txtDeposit.setErrorEnabled(false);
+                        txtWithdraw.setErrorEnabled(false);
+                        transferMoney(view,name,amount,id);
+                    }
                 }
+            }catch (Exception e){
+
             }
+
         });
 
         imgBack.setOnClickListener(view -> finish());

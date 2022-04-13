@@ -24,7 +24,7 @@
         android:layout_height="wrap_content"
         android:text="@string/transferToOther"
         android:textSize="30sp"
-        android:textColor="@color/black"
+        android:textColor="@color/green"
         app:layout_constraintTop_toBottomOf="@id/imgBack"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"

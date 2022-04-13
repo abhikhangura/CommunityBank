@@ -57,4 +57,5 @@
     <color name="md_theme_dark_primaryInverse">#006972</color>
     <color name="black">#000</color>
     <color name="white">#fff</color>
+    <color name="green">#043034</color>
 </resources>
