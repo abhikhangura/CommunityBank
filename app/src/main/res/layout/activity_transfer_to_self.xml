@@ -12,7 +12,7 @@
         android:id="@+id/imgBackTra"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="20dp"
         app:srcCompat="@drawable/ic_baseline_arrow_back_24"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent"/>
@@ -23,7 +23,8 @@
         android:layout_height="wrap_content"
         android:text="@string/transferToSelf"
         app:strokeWidth="1dp"
-        android:textSize="30sp"
+        android:fontFamily="@font/bebasneue_regular"
+        android:textSize="35sp"
         android:layout_marginTop="20dp"
         android:textColor="@color/green"
         app:layout_constraintTop_toBottomOf="@+id/imgBackTra"

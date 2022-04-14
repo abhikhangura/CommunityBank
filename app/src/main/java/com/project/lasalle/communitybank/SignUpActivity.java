@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.google.android.material.snackbar.Snackbar;
@@ -34,16 +35,14 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
     Button btnSignUp;
     String stFirstname,stLastName,stPassword,stEmail,stPhoneNumber;
     TextInputLayout txtEmail,txtPassword,txtPhone,txtFirstName,txtLastName;
+    ProgressBar progressBar;
 
     FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
-                WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
-        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_HIDE_NAVIGATION);
-        setContentView(R.layout.activity_login);
+        getWindow().setStatusBarColor(this.getResources().getColor(R.color.white));
         setContentView(R.layout.activity_sign_up);
         init();
     }
@@ -65,7 +64,8 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         txtFirstName = findViewById(R.id.txtFirstName);
         txtLastName = findViewById(R.id.txtLastName);
         txtPhone = findViewById(R.id.txtPhoneNumber);
-
+        progressBar = findViewById(R.id.progressBarSignup);
+        progressBar.setVisibility(View.GONE);
     }
 
     public void addUser(View view){
@@ -97,6 +97,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
             txtEmail.setErrorEnabled(false);
             txtPhone.setErrorEnabled(false);
             txtPassword.setErrorEnabled(false);
+            progressBar.setVisibility(View.VISIBLE);
             createUser(view);
         }
     }
@@ -143,7 +144,6 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
             }
         }).addOnFailureListener(e->{
         });
+        progressBar.setVisibility(View.GONE);
     }
-
-
 }

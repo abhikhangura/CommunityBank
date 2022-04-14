@@ -44,7 +44,8 @@ public class MenuFragment extends Fragment {
         });
 
         contactLayout.setOnClickListener(view1 -> {
-
+            Intent intent = new Intent(getActivity().getBaseContext(),ContactActivity.class);
+            startActivity(intent);
         });
     }
 

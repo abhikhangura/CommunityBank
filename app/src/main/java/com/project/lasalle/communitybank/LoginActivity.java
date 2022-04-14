@@ -37,7 +37,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     TextView txtNotReg,txtTitle;
     TextInputLayout txtEmail,txtPass;
     ProgressBar progressBar;
-    int counter =0;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     @Override
@@ -45,15 +44,14 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         super.onResume();
         txtEmail.setErrorEnabled(false);
         txtPass.setErrorEnabled(false);
+        progressBar.setVisibility(View.GONE);
 
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
-                WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
-
+        getWindow().setStatusBarColor(this.getResources().getColor(R.color.white));
         getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_HIDE_NAVIGATION);
         setContentView(R.layout.activity_login);
         init();
@@ -88,29 +86,12 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                    User user = documentSnapshot.toObject(User.class);
                     assert user != null;
                     if(user.getEmail().equals(email) && user.getPassword().equals(password)){
-
-
-                        Timer timer = new Timer();
-                        TimerTask timerTask = new TimerTask() {
-                            @Override
-                            public void run() {
-                                    counter++;
-                                    progressBar.setProgress(counter);
-
-                                    if (counter == 40){
-                                        timer.cancel();
-                                        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                                        startActivity(intent);
-                                        SharedPreferences sharedPreferences = getSharedPreferences("UserInfo",MODE_PRIVATE);
-                                        SharedPreferences.Editor editor = sharedPreferences.edit();
-                                        editor.putString("username", user.getEmail());
-                                        editor.apply();
-                                    }
-                            }
-                        };
-
-                        timer.schedule(timerTask,40,40);
-
+                        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                        startActivity(intent);
+                        SharedPreferences sharedPreferences = getSharedPreferences("UserInfo",MODE_PRIVATE);
+                        SharedPreferences.Editor editor = sharedPreferences.edit();
+                        editor.putString("username", user.getEmail());
+                        editor.apply();
                     }else {
                         progressBar.setVisibility(View.GONE);
                         Snackbar.make(view,"Password is invalid!!!",Snackbar.LENGTH_LONG).show();

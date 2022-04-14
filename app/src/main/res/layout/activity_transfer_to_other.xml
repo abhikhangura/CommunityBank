@@ -10,7 +10,7 @@
 
 
     <ImageView
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="20dp"
         android:id="@+id/imgBack"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -23,7 +23,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/transferToOther"
-        android:textSize="30sp"
+        android:fontFamily="@font/bebasneue_regular"
+        android:textSize="35sp"
         android:textColor="@color/green"
         app:layout_constraintTop_toBottomOf="@id/imgBack"
         app:layout_constraintLeft_toLeftOf="parent"

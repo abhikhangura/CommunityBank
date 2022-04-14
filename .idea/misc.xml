@@ -3,6 +3,7 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Android Projects/CommunityBank/app/src/main/res/drawable-v21/app_widget_background.xml" value="0.13" />
         <entry key="..\:/Android Projects/CommunityBank/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.1875" />
         <entry key="..\:/Android Projects/CommunityBank/app/src/main/res/drawable/custom_button.xml" value="0.255" />
         <entry key="..\:/Android Projects/CommunityBank/app/src/main/res/drawable/ic_baseline_arrow_back_24.xml" value="0.13" />
@@ -26,6 +27,7 @@
         <entry key="..\:/Android Projects/CommunityBank/app/src/main/res/drawable/progressbar.xml" value="0.255" />
         <entry key="..\:/Android Projects/CommunityBank/app/src/main/res/drawable/spinner_style.xml" value="0.2525" />
         <entry key="..\:/Android Projects/CommunityBank/app/src/main/res/layout/account_details.xml" value="0.33" />
+        <entry key="..\:/Android Projects/CommunityBank/app/src/main/res/layout/activity_contact.xml" value="0.2975630611372381" />
         <entry key="..\:/Android Projects/CommunityBank/app/src/main/res/layout/activity_login.xml" value="0.33" />
         <entry key="..\:/Android Projects/CommunityBank/app/src/main/res/layout/activity_login2.xml" value="0.25" />
         <entry key="..\:/Android Projects/CommunityBank/app/src/main/res/layout/activity_main.xml" value="0.264" />
@@ -41,10 +43,12 @@
         <entry key="..\:/Android Projects/CommunityBank/app/src/main/res/layout/activity_transfer_to_self.xml" value="0.2975630611372381" />
         <entry key="..\:/Android Projects/CommunityBank/app/src/main/res/layout/drop_down_item.xml" value="0.2975630611372381" />
         <entry key="..\:/Android Projects/CommunityBank/app/src/main/res/layout/fragment_home.xml" value="0.25" />
+        <entry key="..\:/Android Projects/CommunityBank/app/src/main/res/layout/fragment_map.xml" value="0.2975630611372381" />
         <entry key="..\:/Android Projects/CommunityBank/app/src/main/res/layout/fragment_menu.xml" value="0.33" />
         <entry key="..\:/Android Projects/CommunityBank/app/src/main/res/layout/fragment_payee.xml" value="0.3484375" />
         <entry key="..\:/Android Projects/CommunityBank/app/src/main/res/layout/fragment_transfer.xml" value="0.25" />
         <entry key="..\:/Android Projects/CommunityBank/app/src/main/res/layout/icon_color.xml" value="0.20199275362318841" />
+        <entry key="..\:/Android Projects/CommunityBank/app/src/main/res/layout/quick_balance.xml" value="0.2975630611372381" />
         <entry key="..\:/Android Projects/CommunityBank/app/src/main/res/layout/transaction_details.xml" value="0.2975630611372381" />
         <entry key="..\:/Android Projects/CommunityBank/app/src/main/res/menu/bottom_navigation_menu.xml" value="0.3625" />
       </map>

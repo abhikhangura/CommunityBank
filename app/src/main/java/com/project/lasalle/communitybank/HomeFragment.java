@@ -17,6 +17,7 @@ import android.widget.Button;
 
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.google.android.material.snackbar.Snackbar;
@@ -46,6 +47,7 @@ public class HomeFragment extends Fragment implements RecyclerViewInterfaceAccou
     LinearLayout linearLayout;
     ArrayList<Account> accountList1 = new ArrayList<>();
     FirebaseFirestore db = FirebaseFirestore.getInstance();
+    ProgressBar progressBar;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -67,6 +69,8 @@ public class HomeFragment extends Fragment implements RecyclerViewInterfaceAccou
         txtMyAccounts = view.findViewById(R.id.txtMyAccounts);
         addSavingAccount = view.findViewById(R.id.btnAddSavingAccount);
         linearLayout = view.findViewById(R.id.linerAccountLayout);
+        progressBar = view.findViewById(R.id.progressBarHome);
+        progressBar.setVisibility(View.VISIBLE);
 
         DocumentReference documentReference = db.document("Users/"+name);
 
@@ -83,6 +87,7 @@ public class HomeFragment extends Fragment implements RecyclerViewInterfaceAccou
                         addSavingAccount.setVisibility(View.GONE);
                         txtMyAccounts.setVisibility(View.GONE);
                         linearLayout.setVisibility(View.GONE);
+                        progressBar.setVisibility(View.GONE);
                     }
                     else{
                         getAllAccounts(view,name);
@@ -99,6 +104,7 @@ public class HomeFragment extends Fragment implements RecyclerViewInterfaceAccou
         addSavingAccount.setOnClickListener(view1 -> {
             addSavingAccount(name, view1);
             getAllAccounts(view1,name);
+            progressBar.setVisibility(View.VISIBLE);
             checkAccounts(name,addSavingAccount);
         });
     }
@@ -133,8 +139,8 @@ public class HomeFragment extends Fragment implements RecyclerViewInterfaceAccou
                 }
             }
         }).addOnFailureListener(e -> {
-
         });
+        progressBar.setVisibility(View.GONE);
     }
 
     public void getAllAccounts(View view, String name){
@@ -153,6 +159,7 @@ public class HomeFragment extends Fragment implements RecyclerViewInterfaceAccou
                     recyclerViewAccountAdapter = new RecyclerViewAccountAdapter(getActivity(),accountList,this);
                     recyclerView.setAdapter(recyclerViewAccountAdapter);
                     recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+                    progressBar.setVisibility(View.GONE);
                 }
             }
         }).addOnFailureListener(e-> Log.e("Error",e.getMessage()));

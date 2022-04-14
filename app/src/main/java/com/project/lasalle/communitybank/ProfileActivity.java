@@ -25,9 +25,7 @@ public class ProfileActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
-                WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
-        setContentView(R.layout.activity_login);
+        getWindow().setStatusBarColor(this.getResources().getColor(R.color.white));
         setContentView(R.layout.activity_main);
         setContentView(R.layout.activity_profile);
         init();
@@ -56,7 +54,7 @@ public class ProfileActivity extends AppCompatActivity {
                     String name = user1.getFirstName();
                     String lastname = user1.getLastName();
                     String email = user1.getEmail();
-                    String phone = user1.getPhoneNumber().toString();
+                    String phone = user1.getPhoneNumber();
                     txtName.setText(name);
                     txtLastName.setText(lastname);
                     txtEmail.setText(email);

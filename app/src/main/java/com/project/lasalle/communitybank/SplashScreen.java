@@ -44,20 +44,17 @@ public class SplashScreen extends AppCompatActivity {
         txtAppName.setAnimation(bottomAnim);
         txtAppDesc.setAnimation(bottomAnim);
 
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                Intent intent = new Intent(SplashScreen.this,LoginActivity.class);
+        new Handler().postDelayed(() -> {
+            Intent intent = new Intent(SplashScreen.this,LoginActivity.class);
 
-                Pair[] pair = new Pair[3];
-                pair[0] = new Pair(imgLogo,"imageTrans");
-                pair[1] = new Pair(txtAppName,"txtTrans");
-                pair[2] = new Pair(txtAppDesc,"txtDescTrans");
+            Pair[] pair = new Pair[3];
+            pair[0] = new Pair(imgLogo,"imageTrans");
+            pair[1] = new Pair(txtAppName,"txtTrans");
+            pair[2] = new Pair(txtAppDesc,"txtDescTrans");
 
-                ActivityOptions activityOptions = ActivityOptions.makeSceneTransitionAnimation(SplashScreen.this, pair);
-                startActivity(intent,activityOptions.toBundle());
-                finish();
-            }
+            ActivityOptions activityOptions = ActivityOptions.makeSceneTransitionAnimation(SplashScreen.this, pair);
+            startActivity(intent,activityOptions.toBundle());
+            finish();
         },SPLASH_SCREEN);
     }
 }

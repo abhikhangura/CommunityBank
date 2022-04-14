@@ -15,7 +15,7 @@
         android:elevation="5dp"
         android:background="@drawable/linear_layout_account"
         app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="80dp"
+        android:layout_marginTop="30dp"
         android:padding="20dp">
 
 
